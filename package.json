@@ -1,0 +1,32 @@
+{
+  "name": "source-map-demo",
+  "version": "1.0.0",
+  "description": "对压缩过的代码报错信息进行还原",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "dev": "node dist/server.js",
+    "server": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woai3c/source-map-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/woai3c/source-map-demo/issues"
+  },
+  "homepage": "https://github.com/woai3c/source-map-demo#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "source-map": "^0.7.3"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.3.2",
+    "webpack": "^5.58.1",
+    "webpack-cli": "^4.9.0"
+  }
+}

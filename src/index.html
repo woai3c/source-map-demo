@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>source-map-demo</title>
+    <style>
+        .highlight {
+            background: lightblue;
+        }
+
+        button {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .part {
+            margin-bottom: 20px;
+        }
+    </style>
+    <script src="error.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="part">
+            <button @click="geterrorData">获取代码错误信息</button>
+            <div>
+                <div v-for="item in (errorData?.error.split('\n')) || []">{{ item }}</div>
+            </div>
+        </div>
+        
+        <div class="part">
+            <div>
+                <button @click="getDetail">获取未压缩前的代码错误信息</button>
+            </div>
+            <div>
+                <p v-if="errorDetail?.file">源文件：{{ errorDetail.file }}</p>
+                <div v-for="(item, index) in errorStack">
+                    <div :class="{ highlight: index + 1 === errorDetail.line }">{{ index + 1 }} {{ item }} </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    errorData: null,
+                    errorDetail: null,
+                    errorStack: []
+                }
+            },
+            methods: {
+                getDetail() {
+                    axios({
+                        url: 'http://localhost:3000/getErrorDetail',
+                        method: 'post',
+                        data: this.errorData,
+                    })
+                    .then(res => {
+                        const { data } = res
+                        Vue.set(this, 'errorDetail', data)
+                        this.errorStack = data.content.split('\n')
+                    })
+                },
+
+                geterrorData() {
+                    axios({
+                        url: 'http://localhost:3000/geterrorData'
+                    })
+                    .then(res => {
+                        Vue.set(this, 'errorData', res.data)
+                    })
+                },
+            }
+        })
+    </script>
+</body>
+</html>
