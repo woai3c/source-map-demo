@@ -12,7 +12,7 @@ npm run server
 
 在页面中先点击第一个按钮获取该页面生成的 js 报错信息，然后再点击第二个按钮获取未压缩前的代码报错信息。
 
-<img width="400" src="https://user-images.githubusercontent.com/22117876/136667865-a494c486-6f2e-4680-be7a-3a00958c8e62.png"/>
+<img width="600" src="https://user-images.githubusercontent.com/22117876/136667865-a494c486-6f2e-4680-be7a-3a00958c8e62.png"/>
 
 ## 原理
 利用 `window.onerror` 将获取到报错的文件名、行、列等信息传到后端。
